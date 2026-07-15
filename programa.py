@@ -52,6 +52,21 @@ def unidades_cat(categoria, prendas, bodega):
     
     print(f"Hay {unidades} unidades de la categoria {categoria}")
 
+#Opcion 2
+def busqueda_precio(p_min, p_max, prendas, bodega):
+    lista=[]
+    for clave, valor in bodega.items():
+        #Si el valor esta dentro del rango de precios, y tiene unidades añadir a la lista
+        if valor[0]>=p_min and valor[0]<= p_max and valor[1]!=0:
+            lista.append(f"{clave}--{prendas[clave][0]}")
+    #Detectar si la lista esta vacia
+    if len(lista)==0:
+        print("No hay prendas en ese rango de precios")
+    #Ordenar y mostrar si tiene contenido
+    else:
+        lista.sort()
+        print(lista)
+
 #Programa principal
 def main():
     while True:
@@ -61,5 +76,22 @@ def main():
         if opc==1:
             categoria=input("Que categoria desea buscar: ").lower().strip()
             unidades_cat(categoria, prendas, bodega)
+
+        elif opc==2:
+            while True:
+                try:
+                    p_min=int(input("Ingrese el precio minimo: "))
+                    if not p_min>=0:    
+                        print("Debe ser mayor o igual a cero")
+                        continue 
+                    p_max=int(input("Ingrese el precio maximo: "))
+                    if not p_max>p_min:
+                        print("Debe ser mayor al precio minimo")
+                        continue
+                    busqueda_precio(p_min, p_max, prendas, bodega)
+                    break
+                except ValueError:
+                    print("Debe ingresar valores enteros")
+
 
 main()
