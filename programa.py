@@ -124,6 +124,15 @@ def agregar_prenda(codigo, nombre, categoria, talla, color, material, es_unisex,
         prendas[codigo]=valor_prendas
         bodega[codigo]=valor_bodega
         return True
+    
+#Opcion 5
+def eliminar_prenda(codigo, prendas, bodega):
+    if not buscar_cod(codigo, bodega):
+        return False
+    else:
+        del prendas[codigo]
+        del bodega[codigo]
+        return True
 
 #Programa principal
 def main():
@@ -227,7 +236,12 @@ def main():
 
 
         elif opc==5:
-            print("nada")
+            codigo=input("Ingrese el codigo de la prenda: ").upper()
+            if eliminar_prenda(codigo, prendas, bodega):
+                print("Prenda eliminada")
+            else:
+                print("El codigo no existe")
+
 
         elif opc==6:
             print("Programa finalizado.")
