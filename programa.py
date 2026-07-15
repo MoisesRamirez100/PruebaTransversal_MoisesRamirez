@@ -67,6 +67,19 @@ def busqueda_precio(p_min, p_max, prendas, bodega):
         lista.sort()
         print(lista)
 
+#Opcion 3
+def buscar_cod(codigo, bodega):
+    if codigo in bodega:
+        return True
+    return False
+
+def actualizar_precio(codigo, p_nuevo, bodega):
+    if buscar_cod(codigo, bodega):
+        bodega[codigo][0]=p_nuevo
+        return True
+    return False
+
+
 #Programa principal
 def main():
     while True:
@@ -92,6 +105,28 @@ def main():
                     break
                 except ValueError:
                     print("Debe ingresar valores enteros")
+
+        elif opc==3:
+            while True:
+                codigo=input("Ingrese el codigo de la prenda a actualizar: ").upper().strip()
+                try:
+                    p_nuevo=int(input("Ingrese el nuevo precio"))
+                    if p_nuevo<=0:
+                        print("El precio nuevo debe ser un valor entero positivo")
+                        continue
+                except ValueError:
+                    print("El precio nuevo debe ser un valor entero positivo")
+
+                if actualizar_precio(codigo, p_nuevo, bodega):
+                    print("Precio actualizado")
+                else:
+                    print("El codigo no existe")
+                
+                opc=input("¿Desea actualizar otro precio (s/n)?").lower().strip()
+                if opc=="s":
+                    continue
+                else:
+                    break    
 
 
 main()
